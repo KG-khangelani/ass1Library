@@ -8,7 +8,10 @@ class Magazine : public LibraryItem
 public:
     Magazine();
     int getIssueNo();
-    void setIssueNo(int value)
+    void setIssueNo(int value);
+
+private:
+    int issueNo;
 };
 
 #endif // MAGAZINE_H

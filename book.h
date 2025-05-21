@@ -2,11 +2,14 @@
 #define BOOK_H
 
 #include "libraryitem.h"
+#include <QJsonValue>
+#include <QJsonObject>
 
 class Book : public LibraryItem
 {
 public:
     Book();
+    Book(QJsonObject item);
     QString getGenre();
     void setGenre();
 

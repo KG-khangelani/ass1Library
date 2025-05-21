@@ -1,6 +1,6 @@
 #include "libraryitem.h"
 #include <QString>
-
+#include <QDebug>
 
 LibraryItem::LibraryItem() {}
 
@@ -16,6 +16,14 @@ int LibraryItem::getID() {
     return this->id;
 }
 
+void LibraryItem::setID(int value) {
+    this -> id = value;
+}
+
+void LibraryItem::setTitle(QString value) {
+    this -> title = value;
+}
+
 bool LibraryItem::getIsBorrowed() {
     return this -> isBorrowed;
 }
@@ -28,6 +36,9 @@ void LibraryItem::setBorrowing(bool value) {
     this -> isBorrowed = value;
 }
 
-void LibraryItem::setTitle(QString value) {
-    this -> title = value;
+void LibraryItem::displayInfo() {
+    qDebug() << "ID:" << id
+             << "Title:" << title
+             << "Author:" << author
+             << "Borrowed:" << isBorrowed;
 }
