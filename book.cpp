@@ -1,8 +1,10 @@
 #include "book.h"
+#include <QString>
+#include <QJsonObject>
 
 Book::Book() {}
 
-Book::Book(QJsonObject item)
+Book::Book(const QJsonObject &item)
 {
     setID(item["id"].toString());
     setAuthor(item["fullname"].toString());
@@ -11,12 +13,12 @@ Book::Book(QJsonObject item)
     setGenre(item["genre"].toString());
 }
 
-QString Book::getGenre()
+QString Book::getGenre() const
 {
     return this->genre;
 }
 
-void Book::setGenre(const QString &genre)
+void Book::setGenre(const QString genre)
 {
     this->genre = genre;
 }

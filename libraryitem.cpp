@@ -44,11 +44,10 @@ void LibraryItem::setBorrowing(bool value)
     this->isBorrowed = value;
 }
 
-void LibraryItem::displayInfo()
+void LibraryItem::displayInfo() const
 {
-    printf("ID: %d\nTitle: %s\nAuthor: %s\nBorrowed: %s\n",
-           id,
-           title.toStdString().c_str(),
-           author.toStdString().c_str(),
-           isBorrowed ? "Yes" : "No");
+    printf("ID: %s\n", id.toStdString().c_str());
+    printf("Title: %s\n", title.toStdString().c_str());
+    printf("Author: %s\n", author.toStdString().c_str());
+    printf("Is Borrowed: %s\n", isBorrowed ? "Yes" : "No");
 }

@@ -11,17 +11,18 @@ class Library
 public:
     Library();
     void searchItem();
-    void addItem(int id);
-    void borrowItem(int id);
-    void returnItem(int id);
+    void addItem();
+    void borrowItem();
+    void returnItem();
 
 protected:
     QString filePath = "library.json";
     void loadData();
+    void saveData();
 
 private:
     QList<Book> booksCatalogue;
-    QList<LibraryItem> magsCatalogue;
+    QList<Magazine> magsCatalogue;
 };
 
 #endif // LIBRARY_H

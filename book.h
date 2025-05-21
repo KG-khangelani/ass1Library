@@ -4,24 +4,27 @@
 #include "libraryitem.h"
 #include <QJsonValue>
 #include <QJsonObject>
+#include <QString>
 
 class Book : public LibraryItem
 {
 public:
     Book();
-    Book(const QJsonObject item);
-    QString getGenre();
-    void setGenre(const QString &genre);
-    void displayInfo() override
+    Book(const QJsonObject &item);
+    QString getGenre() const;
+    void setGenre(const QString genre);
+    void displayInfo() const override
     {
         LibraryItem::displayInfo();
         printf("Genre: %s\n", genre.toStdString().c_str());
+        printf("=========================\n");
     }
     friend bool operator==(const Book &lhs, const Book &rhs)
     {
         return lhs.getTitle() == rhs.getTitle() &&
                lhs.getAuthor() == rhs.getAuthor() &&
                lhs.getID() == rhs.getID() &&
+               lhs.getIsBorrowed() == rhs.getIsBorrowed() &&
                lhs.genre == rhs.genre;
     };
 

@@ -8,15 +8,48 @@ using namespace std;
 
 int main()
 {
-    QString filename = "library.json";
     Library ithala_lencwadi = Library();
-    ithala_lencwadi.loadData(filename);
-    string input;
-    cout << "Hello" << endl;
-    cin >> input;
-    cout << "You entered: " << input << endl;
-    printf("John vula");
-    // QDebug() << "Hello World";
+    printf("Welcome to the Library Management System!\n");
+    string inputStd;
+    QString input = QString::fromStdString(inputStd);
+
+    while (input != "q")
+    {
+        printf("Please choose an option:\n");
+        printf("1 - Search for an item\n");
+        printf("2 - Add an item\n");
+        printf("3 - Borrow an item\n");
+        printf("4 - Return an item\n");
+        printf("q - Exit\n");
+        cin >> inputStd;
+        while (input != "1" && input != "q" && input != "2" && input != "3" && input != "4" && input != "5")
+        {
+            printf("Invalid input. Please enter a number between 1 and 5: ");
+            cin >> inputStd;
+            input = QString::fromStdString(inputStd);
+        }
+        if (input == "1")
+        {
+            ithala_lencwadi.searchItem();
+        }
+        else if (input == "2")
+        {
+            ithala_lencwadi.addItem();
+        }
+        else if (input == "3")
+        {
+            ithala_lencwadi.borrowItem();
+        }
+        else if (input == "4")
+        {
+            ithala_lencwadi.returnItem();
+        }
+        else if (input == "q")
+        {
+            printf("Exiting the program. Goodbye!\n");
+            return 0;
+        }
+    }
 
 #ifdef _WIN32
     // Wait for key press to keep console open

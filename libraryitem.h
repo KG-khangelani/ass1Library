@@ -23,7 +23,7 @@ public:
                lhs.id == rhs.id;
     };
 
-    virtual void displayInfo();
+    virtual void displayInfo() const;
 
 private:
     QString id;

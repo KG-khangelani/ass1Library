@@ -4,7 +4,7 @@
 
 Magazine::Magazine() {}
 
-Magazine::Magazine(QJsonObject item)
+Magazine::Magazine(const QJsonObject &item)
 {
     setID(item["id"].toString());
     setAuthor(item["fullname"].toString());
@@ -13,7 +13,7 @@ Magazine::Magazine(QJsonObject item)
     setIssueNo(item["issueNumber"].toInt());
 }
 
-int Magazine::getIssueNo()
+int Magazine::getIssueNo() const
 {
     return this->issueNo;
 }
