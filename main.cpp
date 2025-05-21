@@ -2,13 +2,15 @@
 #include <iostream>
 #include <string>
 #include <QDebug>
+#include <QString>
 
 using namespace std;
 
 int main()
 {
+    QString filename = "library.json";
     Library ithala_lencwadi = Library();
-    QString text;
+    ithala_lencwadi.loadData(filename);
     string input;
     cout << "Hello" << endl;
     cin >> input;

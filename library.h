@@ -14,7 +14,10 @@ public:
     void addItem(int id);
     void borrowItem(int id);
     void returnItem(int id);
-    void loadData(QString &path);
+
+protected:
+    QString filePath = "library.json";
+    void loadData();
 
 private:
     QList<LibraryItem> catalogue;

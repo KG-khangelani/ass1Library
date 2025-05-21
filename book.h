@@ -11,7 +11,12 @@ public:
     Book();
     Book(QJsonObject item);
     QString getGenre();
-    void setGenre();
+    void setGenre(const QString &genre);
+    void displayInfo() override
+    {
+        LibraryItem::displayInfo();
+        printf("Genre: %s\n", genre.toStdString().c_str());
+    }
 
 private:
     QString genre;

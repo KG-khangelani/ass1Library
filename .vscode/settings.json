@@ -24,6 +24,7 @@
     "qt-qml.qmlls.useQmlImportPathEnvVar": true,
     "files.associations": {
         "iostream": "cpp",
-        "qdebug": "cpp"
+        "qdebug": "cpp",
+        "string": "cpp"
     }
 }
