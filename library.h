@@ -20,8 +20,8 @@ protected:
     void loadData();
 
 private:
-    QList<LibraryItem> catalogue;
-    QList<int> matrix;
+    QList<Book> booksCatalogue;
+    QList<LibraryItem> magsCatalogue;
 };
 
 #endif // LIBRARY_H

@@ -6,12 +6,12 @@ class LibraryItem
 {
 public:
     LibraryItem();
-    int getID();
-    QString getTitle();
-    QString getAuthor();
-    bool getIsBorrowed();
+    QString getID() const;
+    QString getTitle() const;
+    QString getAuthor() const;
+    bool getIsBorrowed() const;
 
-    void setID(int value);
+    void setID(QString value);
     void setAuthor(QString fullname);
     void setTitle(QString value);
     void setBorrowing(bool value);
@@ -26,7 +26,7 @@ public:
     virtual void displayInfo();
 
 private:
-    int id;
+    QString id;
     QString title;
     QString author;
     bool isBorrowed;

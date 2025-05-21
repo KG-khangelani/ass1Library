@@ -4,22 +4,22 @@
 
 LibraryItem::LibraryItem() {}
 
-QString LibraryItem::getTitle()
+QString LibraryItem::getTitle() const
 {
     return this->title;
 }
 
-QString LibraryItem::getAuthor()
+QString LibraryItem::getAuthor() const
 {
     return this->author;
 }
 
-int LibraryItem::getID()
+QString LibraryItem::getID() const
 {
     return this->id;
 }
 
-void LibraryItem::setID(int value)
+void LibraryItem::setID(QString value)
 {
     this->id = value;
 }
@@ -29,7 +29,7 @@ void LibraryItem::setTitle(QString value)
     this->title = value;
 }
 
-bool LibraryItem::getIsBorrowed()
+bool LibraryItem::getIsBorrowed() const
 {
     return this->isBorrowed;
 }

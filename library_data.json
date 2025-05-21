@@ -1,8 +1,49 @@
-[
-{
-    "id": 1,
-    "title": "Chos-chosi indaba zolwini",
-    "author": "Sikelelwa Mgoqi",
-    "isBorrowed": true
-}
-]
+[{
+  "id": "249556029-6",
+  "fullname": "Armstrong Smithies",
+  "title": "What Price Glory",
+  "is_borrowed": true,
+  "genre": "Comedy|Drama|War"
+}, {
+  "id": "183234783-4",
+  "fullname": "Lindon Peniello",
+  "title": "Uncertainty",
+  "is_borrowed": false,
+  "genre": "Action|Crime|Drama|Fantasy|Romance"
+}, {
+  "id": "997236582-4",
+  "fullname": "Carlin Poel",
+  "title": "Hireling, The",
+  "is_borrowed": true,
+  "genre": "Drama"
+}, {
+  "id": "917790366-8",
+  "fullname": "Ariel Degli Abbati",
+  "title": "A Year Along the Abandoned Road",
+  "is_borrowed": false,
+  "genre": "(no genres listed)"
+}, {
+  "id": "439455697-X",
+  "fullname": "Nikolos Ishchenko",
+  "title": "Rise & Fall of ECW, The",
+  "is_borrowed": true,
+  "issueNumber": 17
+}, {
+  "id": "612449327-6",
+  "fullname": "Georgia Ogan",
+  "title": "Spirit of St. Louis, The",
+  "is_borrowed": true,
+  "issueNumber": 19
+}, {
+  "id": "761559531-2",
+  "fullname": "Bria Redhills",
+  "title": "Dirt Bike Kid, The",
+  "is_borrowed": false,
+  "issueNumber": 10
+}, {
+  "id": "881980542-1",
+  "fullname": "Dinny Gierardi",
+  "title": "Tom & Thomas",
+  "is_borrowed": false,
+  "issueNumber": 15
+}]

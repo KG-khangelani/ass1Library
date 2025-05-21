@@ -37,7 +37,7 @@ void Library::loadData()
         {
             QJsonObject item = value.toObject();
             LibraryItem libraryItem;
-            libraryItem.setID(item["id"].toInt());
+            libraryItem.setID(item["id"].toString());
             libraryItem.setTitle(item["title"].toString());
             libraryItem.setAuthor(item["author"].toString());
             libraryItem.setBorrowing(item["isBorrowed"].toBool());
@@ -45,16 +45,12 @@ void Library::loadData()
             if (item.contains("genre"))
             {
                 Book book(item);
-                catalogue.append(book);
+                booksCatalogue.append(book);
             }
             else if (item.contains("issueNumber"))
             {
                 Magazine magazine(item);
-                catalogue.append(magazine);
-            }
-            else
-            {
-                catalogue.append(libraryItem);
+                magsCatalogue.append(magazine);
             }
         }
     }

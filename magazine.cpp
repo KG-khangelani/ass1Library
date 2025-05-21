@@ -4,9 +4,9 @@
 
 Magazine::Magazine() {}
 
-Magazine::Magazine(QJsonObject &item)
+Magazine::Magazine(QJsonObject item)
 {
-    setID(item["id"].toInt());
+    setID(item["id"].toString());
     setAuthor(item["fullname"].toString());
     setBorrowing(item["is_borrowed"].toBool());
     setTitle(item["title"].toString());

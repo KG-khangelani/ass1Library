@@ -7,7 +7,7 @@ class Magazine : public LibraryItem
 {
 public:
     Magazine();
-    Magazine(QJsonObject item);
+    Magazine(const QJsonObject item);
     int getIssueNo();
     void setIssueNo(int value);
     void displayInfo() override
@@ -15,6 +15,13 @@ public:
         LibraryItem::displayInfo();
         printf("Issue Number: %d\n", issueNo);
     }
+    friend bool operator==(const Magazine &lhs, const Magazine &rhs)
+    {
+        return lhs.getTitle() == rhs.getTitle() &&
+               lhs.getAuthor() == rhs.getAuthor() &&
+               lhs.getID() == rhs.getID() &&
+               lhs.issueNo == rhs.issueNo;
+    };
 
 private:
     int issueNo;

@@ -9,7 +9,7 @@ class Book : public LibraryItem
 {
 public:
     Book();
-    Book(QJsonObject item);
+    Book(const QJsonObject item);
     QString getGenre();
     void setGenre(const QString &genre);
     void displayInfo() override
@@ -17,6 +17,13 @@ public:
         LibraryItem::displayInfo();
         printf("Genre: %s\n", genre.toStdString().c_str());
     }
+    friend bool operator==(const Book &lhs, const Book &rhs)
+    {
+        return lhs.getTitle() == rhs.getTitle() &&
+               lhs.getAuthor() == rhs.getAuthor() &&
+               lhs.getID() == rhs.getID() &&
+               lhs.genre == rhs.genre;
+    };
 
 private:
     QString genre;
