@@ -21,13 +21,19 @@ int main(int argc, char *argv[])
 
     while (input != "q")
     {
+        printf("\n");
+        printf("      _______\n");
+        printf("     /      /,\n");
+        printf("    / Home //\n");
+        printf("   /______//\n");
+        printf("  (______(/\n\n");
         printf("Please choose an option:\n");
-        printf("1 - Search for an item\n");
-        printf("2 - Add an item\n");
-        printf("3 - Borrow an item\n");
-        printf("4 - Return an item\n");
-        printf("5 - Print all items\n");
-        printf("q - Exit\n");
+        printf("[1] - Search for an item\n");
+        printf("[2] - Add an item\n");
+        printf("[3] - Borrow an item\n");
+        printf("[4] - Return an item\n");
+        printf("[5] - Print all items\n");
+        printf("[q] - Exit\n");
         cin >> inputStd;
         QString input = QString::fromStdString(inputStd);
         while (input != "1" && input != "q" && input != "2" && input != "3" && input != "4" && input != "5")

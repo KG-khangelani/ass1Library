@@ -148,28 +148,28 @@ void Library::printAllItems()
 
 void Library::searchItem()
 {
-    cout << "Searching for a Book or Magazine?" << endl;
-    cout << "b - book | m - magazine" << endl;
+    printf("Searching for a Book or Magazine?");
+    printf("[b] - book | [m] - magazine");
     string searchTypeStd;
     cin >> searchTypeStd;
     QString searchType = QString::fromStdString(searchTypeStd);
 
     while (searchType != "b" && searchType != "m")
     {
-        printf("Invalid input. Please enter 'b' or 'm': ");
+        printf("\nInvalid input. Please enter 'b' or 'm': ");
         cin >> searchTypeStd;
         searchType = QString::fromStdString(searchTypeStd).toLower();
     }
 
     string searchTermStd;
     printf("Search by:\n");
-    printf("t - title | a - author | i - ID\n");
+    printf("[t] - title | [a] - author | [i] - ID\n");
     cin >> searchTermStd;
     QString searchTerm = QString::fromStdString(searchTermStd);
 
     while (searchTerm != "t" && searchTerm != "a" && searchTerm != "i")
     {
-        printf("Invalid input. Please enter 't', 'a', or 'i': ");
+        printf("\nInvalid input. Please enter 't', 'a', or 'i': ");
         cin >> searchTermStd;
         searchTerm = QString::fromStdString(searchTermStd).toLower();
     }
@@ -179,14 +179,14 @@ void Library::searchItem()
     {
         string titleStd;
         printf("Enter title: ");
-        std::getline(cin >> std::ws, titleStd);
+        getline(cin >> std::ws, titleStd);
         titleSearch = QString::fromStdString(titleStd).toLower();
     }
     else if (searchTerm == "a")
     {
         string authorStd;
         printf("Enter author: ");
-        std::getline(cin >> std::ws, authorStd);
+        getline(cin >> std::ws, authorStd);
         authorSearch = QString::fromStdString(authorStd).toLower();
     }
     else if (searchTerm == "i")
@@ -212,7 +212,7 @@ void Library::searchItem()
             }
         }
         if (!found)
-            printf("Book not found in the catalogue.\n");
+            printf("\nBook not found in the catalogue.\n");
         return;
     }
     else if (searchType == "m")
@@ -230,7 +230,7 @@ void Library::searchItem()
             }
         }
         if (!found)
-            printf("Magazine not found in the catalogue.\n");
+            printf("\nMagazine not found in the catalogue.\n");
         return;
     }
 }
@@ -269,7 +269,7 @@ void Library::addItem()
         Book book(newItem);
         if (booksCatalogue.contains(book))
         {
-            std::cout << "Item already exists in the catalogue.\n";
+            std::cout << "\nItem already exists in the catalogue.\n";
             return;
         }
         booksCatalogue.append(book);
@@ -296,7 +296,7 @@ void Library::addItem()
         Magazine mag(newItem);
         if (magsCatalogue.contains(mag))
         {
-            std::cout << "Item already exists in the catalogue.\n";
+            printf("Item already exists in the catalogue.\n");
             return;
         }
         magsCatalogue.append(mag);
@@ -304,7 +304,7 @@ void Library::addItem()
 
     // Persist updated catalog to JSON file
     saveData();
-    cout << "Item added successfully!\n";
+    printf("Item added successfully!\n");
 }
 
 void Library::borrowItem()
@@ -332,12 +332,12 @@ void Library::borrowItem()
             {
                 if (book.getIsBorrowed())
                 {
-                    printf("Book is already borrowed.\n");
+                    printf("\nBook is already borrowed.\n");
                 }
                 else
                 {
                     book.setBorrowing(true);
-                    printf("Book borrowed successfully!\n");
+                    printf("\nBook borrowed successfully!\n");
                     saveData();
                 }
                 return;

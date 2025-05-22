@@ -46,6 +46,7 @@ void LibraryItem::setBorrowing(bool value)
 
 void LibraryItem::displayInfo() const
 {
+    printf("\n==== Library Item ====\n");
     printf("ID: %s\n", id.toStdString().c_str());
     printf("Title: %s\n", title.toStdString().c_str());
     printf("Author: %s\n", author.toStdString().c_str());

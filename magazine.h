@@ -16,7 +16,6 @@ public:
     {
         LibraryItem::displayInfo();
         printf("Issue Number: %d\n", issueNo);
-        printf("=========================\n");
     }
     friend bool operator==(const Magazine &lhs, const Magazine &rhs)
     {

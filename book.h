@@ -17,7 +17,6 @@ public:
     {
         LibraryItem::displayInfo();
         printf("Genre: %s\n", genre.toStdString().c_str());
-        printf("=========================\n");
     }
     friend bool operator==(const Book &lhs, const Book &rhs)
     {
