@@ -149,8 +149,8 @@ void Library::printAllItems()
 
 void Library::searchItem()
 {
-    printf("Searching for a Book or Magazine?");
-    printf("[b] - book | [m] - magazine");
+    printf("Searching for a Book or Magazine?\n");
+    printf("[b] - book | [m] - magazine\n");
     string searchTypeStd;
     cin >> searchTypeStd;
     QString searchType = QString::fromStdString(searchTypeStd).toLower();
