@@ -2,7 +2,7 @@
 #include <QJsonObject>
 #include <QJsonValue>
 
-Magazine::Magazine() {}
+Magazine::Magazine() : issueNo(0) {}
 
 Magazine::Magazine(const QJsonObject &item)
 {

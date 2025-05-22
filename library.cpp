@@ -7,6 +7,7 @@
 #include <QJsonArray>
 #include <QDebug>
 #include <QJsonValueRef>
+#include <string>
 
 using namespace std;
 
@@ -152,7 +153,7 @@ void Library::searchItem()
     printf("[b] - book | [m] - magazine");
     string searchTypeStd;
     cin >> searchTypeStd;
-    QString searchType = QString::fromStdString(searchTypeStd);
+    QString searchType = QString::fromStdString(searchTypeStd).toLower();
 
     while (searchType != "b" && searchType != "m")
     {
@@ -165,7 +166,7 @@ void Library::searchItem()
     printf("Search by:\n");
     printf("[t] - title | [a] - author | [i] - ID\n");
     cin >> searchTermStd;
-    QString searchTerm = QString::fromStdString(searchTermStd);
+    QString searchTerm = QString::fromStdString(searchTermStd).toLower();
 
     while (searchTerm != "t" && searchTerm != "a" && searchTerm != "i")
     {
@@ -256,16 +257,16 @@ void Library::addItem()
         cout << "Enter ID (ISBN like 48410-0): ";
         cin >> id;
         cout << "Enter title: ";
-        cin >> title;
+        getline(cin >> ws, title);
         cout << "Enter author: ";
-        cin >> author;
+        getline(cin >> ws, author);
         cout << "Enter genre: ";
-        cin >> genre;
-        newItem["id"] = QString::fromStdString(id);
-        newItem["title"] = QString::fromStdString(title);
-        newItem["author"] = QString::fromStdString(author);
-        newItem["genre"] = QString::fromStdString(genre);
-        newItem["isBorrowed"] = false;
+        getline(cin >> ws, genre);
+        newItem.insert("id", QString::fromStdString(id));
+        newItem.insert("title", QString::fromStdString(title));
+        newItem.insert("author", QString::fromStdString(author));
+        newItem.insert("genre", QString::fromStdString(genre));
+        newItem.insert("isBorrowed", false);
         Book book(newItem);
         if (booksCatalogue.contains(book))
         {
@@ -279,20 +280,17 @@ void Library::addItem()
         string id, title, author, issue;
         cout << "Enter ID (like 2025-04): ";
         cin >> id;
-        cout << endl
-             << "Enter title: ";
-        cin >> title;
-        cout << endl
-             << "Enter author: ";
-        cin >> author;
-        cout << endl
-             << "Enter issue number: ";
-        cin >> issue;
-        newItem["id"] = QString::fromStdString(id);
-        newItem["title"] = QString::fromStdString(title);
-        newItem["author"] = QString::fromStdString(author);
-        newItem["issueNumber"] = QString::fromStdString(issue);
-        newItem["isBorrowed"] = false;
+        cout << "Enter title: ";
+        getline(cin >> ws, title);
+        cout << "Enter author: ";
+        getline(cin >> ws, author);
+        cout << "Enter issue number: ";
+        getline(cin >> ws, issue);
+        newItem.insert("id", QString::fromStdString(id));
+        newItem.insert("title", QString::fromStdString(title));
+        newItem.insert("author", QString::fromStdString(author));
+        newItem.insert("issueNumber", QString::fromStdString(issue));
+        newItem.insert("isBorrowed", false);
         Magazine mag(newItem);
         if (magsCatalogue.contains(mag))
         {
@@ -312,7 +310,7 @@ void Library::borrowItem()
     printf("Would you like to borrow a book or magazine? (b/m): ");
     string itemTypeStd;
     cin >> itemTypeStd;
-    QString itemType = QString::fromStdString(itemTypeStd);
+    QString itemType = QString::fromStdString(itemTypeStd).toLower();
     while (itemType != "b" && itemType != "m")
     {
         printf("Invalid input. Please enter 'b' or 'm': ");
@@ -377,7 +375,7 @@ void Library::returnItem()
     printf("Are you returning a book or magazine? (b/m): ");
     string itemTypeStd;
     cin >> itemTypeStd;
-    QString itemType = QString::fromStdString(itemTypeStd);
+    QString itemType = QString::fromStdString(itemTypeStd).toLower();
     while (itemType != "b" && itemType != "m")
     {
         printf("Invalid input. Please enter 'b' or 'm': ");
@@ -415,7 +413,7 @@ void Library::returnItem()
         printf("Enter magazine ID: ");
         string idStd;
         cin >> idStd;
-        QString idSearch = QString::fromStdString(idStd);
+        QString idSearch = QString::fromStdString(idStd).toLower();
         for (Magazine &magazine : magsCatalogue)
         {
             if (magazine.getID().toLower() == idSearch)

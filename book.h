@@ -12,7 +12,7 @@ public:
     Book();
     Book(const QJsonObject &item);
     QString getGenre() const;
-    void setGenre(const QString genre);
+    void setGenre(const QString &genre);
     void displayInfo() const override
     {
         LibraryItem::displayInfo();

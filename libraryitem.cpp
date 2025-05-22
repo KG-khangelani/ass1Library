@@ -2,7 +2,7 @@
 #include <QString>
 #include <QDebug>
 
-LibraryItem::LibraryItem() {}
+LibraryItem::LibraryItem() : isBorrowed(false) {}
 
 QString LibraryItem::getTitle() const
 {

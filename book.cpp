@@ -18,7 +18,7 @@ QString Book::getGenre() const
     return this->genre;
 }
 
-void Book::setGenre(const QString genre)
+void Book::setGenre(const QString &genre)
 {
     this->genre = genre;
 }
