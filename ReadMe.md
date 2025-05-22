@@ -1,4 +1,4 @@
-# Assignment 1 Library
+# Assignment 1 Library Management System
 
 ```
     _______
@@ -6,12 +6,74 @@
   /      //
  /______//
 (______(/
-
 ```
 
-> You are required to develop a simple Library Management System using C++. The system 
-should allow users to perform basic operations such as adding books, searching for books, 
-borrowing books, and returning books, all via a console interface. 
+## Overview
+A simple console-based Library Management System written in C++ using Qt for JSON handling. Users can perform basic operations:
+- **Search** for Books or Magazines by title, author, or ID
+- **Add** new items to the catalogue
+- **Borrow** and **Return** items, with borrowing state saved to JSON
 
+## Project Structure
+```
+main.cpp          # Entry point: displays menu and dispatches commands
+library.h/.cpp    # Library class: manages collections and JSON persistence
+libraryitem.h/.cpp# Base class: common fields (id, title, author, isBorrowed)
+book.h/.cpp       # Book class: adds 'genre'
+magazine.h/.cpp   # Magazine class: adds 'issueNumber'
+library_data.json # Persistent storage of items
+```
 
-[1]: https://www.qt.io
+## Class Diagram
+```mermaid
+classDiagram
+    LibraryItem <|-- Book
+    LibraryItem <|-- Magazine
+    Library o-- Book : "booksCatalogue"
+    Library o-- Magazine : "magsCatalogue"
+
+    class LibraryItem {
+        +QString id
+        +QString title
+        +QString author
+        +bool isBorrowed
+    }
+    class Book {
+        +QString genre
+        +void displayInfo()
+    }
+    class Magazine {
+        +QString issueNumber
+        +void displayInfo()
+    }
+    class Library {
+        +QList<Book> booksCatalogue
+        +QList<Magazine> magsCatalogue
+        +void loadData()
+        +void saveData()
+        +void searchItem()
+        +void addItem()
+        +void borrowItem()
+        +void returnItem()
+    }
+```
+
+## Workflow
+1. **Startup**: `main.cpp` loads JSON via `Library::loadData()`
+2. **User Menu**: choose operation (Search, Add, Borrow, Return, Exit)
+3. **Operations**: Library methods update in-memory data and JSON file
+4. **Exit**: all changes persisted by `Library::saveData()`
+
+## JSON Schema
+```json
+[
+  {
+    "id": "12345-X",
+    "title": "Example Title",
+    "author": "Author Name",
+    "genre": "Fiction",          // for books
+    "issueNumber": "2025-04"     // for magazines
+    "isBorrowed": false
+  }
+]
+```
