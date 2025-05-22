@@ -10,7 +10,11 @@
 
 using namespace std;
 
-Library::Library() {}
+Library::Library()
+{
+    // Load data from JSON file
+    loadData();
+}
 
 void Library::loadData()
 {
@@ -160,10 +164,9 @@ void Library::searchItem()
                 book.displayInfo();
                 return;
             }
-
-            printf("Book not found in the catalogue.\n");
-            return;
         }
+        printf("Book not found in the catalogue.\n\n");
+        return;
     }
     else if (searchType == "m")
     {
@@ -177,9 +180,9 @@ void Library::searchItem()
                 magazine.displayInfo();
                 return;
             }
-            printf("Magazine not found in the catalogue.\n");
-            return;
         }
+        printf("Magazine not found in the catalogue.\n\n");
+        return;
     }
 }
 

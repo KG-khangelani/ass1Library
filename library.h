@@ -14,11 +14,11 @@ public:
     void addItem();
     void borrowItem();
     void returnItem();
+    void saveData();
 
 protected:
-    QString filePath = "library.json";
+    QString filePath = "../library_data.json";
     void loadData();
-    void saveData();
 
 private:
     QList<Book> booksCatalogue;

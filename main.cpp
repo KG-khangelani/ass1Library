@@ -11,7 +11,7 @@ int main()
     Library ithala_lencwadi = Library();
     printf("Welcome to the Library Management System!\n");
     string inputStd;
-    QString input = QString::fromStdString(inputStd);
+    QString input;
 
     while (input != "q")
     {
@@ -22,6 +22,7 @@ int main()
         printf("4 - Return an item\n");
         printf("q - Exit\n");
         cin >> inputStd;
+        QString input = QString::fromStdString(inputStd);
         while (input != "1" && input != "q" && input != "2" && input != "3" && input != "4" && input != "5")
         {
             printf("Invalid input. Please enter a number between 1 and 5: ");
@@ -46,6 +47,8 @@ int main()
         }
         else if (input == "q")
         {
+            printf("Saving data...\n");
+            ithala_lencwadi.saveData();
             printf("Exiting the program. Goodbye!\n");
             return 0;
         }
