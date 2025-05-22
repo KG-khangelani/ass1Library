@@ -5,6 +5,8 @@
 #include "magazine.h"
 #include <QList>
 #include <QJsonObject>
+#include <QCoreApplication>
+#include <QDir>
 
 class Library
 {
@@ -15,9 +17,11 @@ public:
     void borrowItem();
     void returnItem();
     void saveData();
+    void printAllItems();
 
 protected:
-    QString filePath = "../library_data.json";
+    // Store JSON alongside the executable
+    QString filePath = QCoreApplication::applicationDirPath() + "/library_data.json";
     void loadData();
 
 private:

@@ -1,13 +1,19 @@
 #include "library.h"
 #include <iostream>
+#include <QCoreApplication>
 #include <string>
 #include <QDebug>
 #include <QString>
 
 using namespace std;
 
-int main()
+int main(int argc, char *argv[])
 {
+    QCoreApplication app(argc, argv);
+    QCoreApplication::setApplicationName("Library Management System");
+    QCoreApplication::setApplicationVersion("1.0");
+    QCoreApplication::setOrganizationDomain("librarymanagementsystem.com");
+
     Library ithala_lencwadi = Library();
     printf("Welcome to the Library Management System!\n");
     string inputStd;
@@ -20,6 +26,7 @@ int main()
         printf("2 - Add an item\n");
         printf("3 - Borrow an item\n");
         printf("4 - Return an item\n");
+        printf("5 - Print all items\n");
         printf("q - Exit\n");
         cin >> inputStd;
         QString input = QString::fromStdString(inputStd);
@@ -45,6 +52,10 @@ int main()
         {
             ithala_lencwadi.returnItem();
         }
+        else if (input == "5")
+        {
+            ithala_lencwadi.printAllItems();
+        }
         else if (input == "q")
         {
             printf("Saving data...\n");
@@ -60,5 +71,5 @@ int main()
     getchar();
 #endif
 
-    return 0;
+    return app.exec();
 }

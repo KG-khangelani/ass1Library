@@ -7,8 +7,8 @@ Book::Book() {}
 Book::Book(const QJsonObject &item)
 {
     setID(item["id"].toString());
-    setAuthor(item["fullname"].toString());
-    setBorrowing(item["is_borrowed"].toBool());
+    setAuthor(item["author"].toString());
+    setBorrowing(item["isBorrowed"].toBool());
     setTitle(item["title"].toString());
     setGenre(item["genre"].toString());
 }

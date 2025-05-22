@@ -17,3 +17,6 @@ CONFIG += console
 # Input
 HEADERS += book.h library.h libraryitem.h magazine.h
 SOURCES += book.cpp library.cpp libraryitem.cpp magazine.cpp main.cpp
+
+RESOURCES += \
+    library_resources.qrc

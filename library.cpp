@@ -12,7 +12,24 @@ using namespace std;
 
 Library::Library()
 {
-    // Load data from JSON file
+    // Ensure persistent JSON file exists by copying from resource on first run
+    QString resourcePath = ":/data/library_data.json";
+    if (!QFile::exists(filePath))
+    {
+        QFile resFile(resourcePath);
+        if (resFile.open(QIODevice::ReadOnly | QIODevice::Text))
+        {
+            QByteArray data = resFile.readAll();
+            QFile extFile(filePath);
+            if (extFile.open(QIODevice::WriteOnly | QIODevice::Text))
+            {
+                extFile.write(data);
+                extFile.close();
+            }
+            resFile.close();
+        }
+    }
+    // Load data into memory
     loadData();
 }
 
@@ -51,7 +68,8 @@ void Library::loadData()
                 Book book(item);
                 booksCatalogue.append(book);
             }
-            else if (item.contains("issueNumber"))
+            // Handle magazines with either 'issueNumber' (saved) or initial 'issue'
+            else if (item.contains("issueNumber") || item.contains("issue"))
             {
                 Magazine magazine(item);
                 magsCatalogue.append(magazine);
@@ -99,10 +117,37 @@ void Library::saveData()
     printf("Data saved successfully!\n");
 }
 
+// Provide functionality to print all books and magazines in the catalog
+void Library::printAllItems()
+{
+    printf("Books Catalogue:\n");
+    if (booksCatalogue.isEmpty())
+    {
+        printf("No books in catalogue.\n");
+    }
+    else
+    {
+        for (const Book &book : booksCatalogue)
+        {
+            book.displayInfo();
+        }
+    }
+    printf("Magazines Catalogue:\n");
+    if (magsCatalogue.isEmpty())
+    {
+        printf("No magazines in catalogue.\n");
+    }
+    else
+    {
+        for (const Magazine &mag : magsCatalogue)
+        {
+            mag.displayInfo();
+        }
+    }
+}
+
 void Library::searchItem()
 {
-    // Implement search functionality here
-
     cout << "Searching for a Book or Magazine?" << endl;
     cout << "b - book | m - magazine" << endl;
     string searchTypeStd;
@@ -134,14 +179,14 @@ void Library::searchItem()
     {
         string titleStd;
         printf("Enter title: ");
-        cin >> titleStd;
+        std::getline(cin >> std::ws, titleStd);
         titleSearch = QString::fromStdString(titleStd).toLower();
     }
     else if (searchTerm == "a")
     {
         string authorStd;
         printf("Enter author: ");
-        cin >> authorStd;
+        std::getline(cin >> std::ws, authorStd);
         authorSearch = QString::fromStdString(authorStd).toLower();
     }
     else if (searchTerm == "i")
@@ -154,138 +199,116 @@ void Library::searchItem()
 
     if (searchType == "b")
     {
-        // Search in booksCatalogue
+        bool found = false;
         for (const Book &book : booksCatalogue)
         {
-            if ((searchTerm == "t" && book.getTitle().toLower() == titleSearch.toLower()) ||
-                (searchTerm == "a" && book.getAuthor().toLower() == authorSearch.toLower()) ||
-                (searchTerm == "i" && book.getID().toLower() == idSearch.toLower()))
+            if ((searchTerm == "t" && book.getTitle().toLower() == titleSearch) ||
+                (searchTerm == "a" && book.getAuthor().toLower() == authorSearch) ||
+                (searchTerm == "i" && book.getID().toLower() == idSearch))
             {
                 book.displayInfo();
-                return;
+                found = true;
+                break;
             }
         }
-        printf("Book not found in the catalogue.\n\n");
+        if (!found)
+            printf("Book not found in the catalogue.\n");
         return;
     }
     else if (searchType == "m")
     {
-        // Search in magsCatalogue
+        bool found = false;
         for (const Magazine &magazine : magsCatalogue)
         {
-            if ((searchTerm == "t" && magazine.getTitle().toLower() == titleSearch.toLower()) ||
-                (searchTerm == "a" && magazine.getAuthor().toLower() == authorSearch.toLower()) ||
-                (searchTerm == "i" && magazine.getID().toLower() == idSearch.toLower()))
+            if ((searchTerm == "t" && magazine.getTitle().toLower() == titleSearch) ||
+                (searchTerm == "a" && magazine.getAuthor().toLower() == authorSearch) ||
+                (searchTerm == "i" && magazine.getID().toLower() == idSearch))
             {
                 magazine.displayInfo();
-                return;
+                found = true;
+                break;
             }
         }
-        printf("Magazine not found in the catalogue.\n\n");
+        if (!found)
+            printf("Magazine not found in the catalogue.\n");
         return;
     }
 }
 
 void Library::addItem()
 {
-    // Implement add item functionality here. Itshould update the JSON file too on ene on runtime.
-    QFile file(this->filePath);
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+    // Prompt for new item type
+    cout << "Is it a book or magazine? (b/m): ";
+    string typeStd;
+    cin >> typeStd;
+    QString type = QString::fromStdString(typeStd).toLower();
+    while (type != "b" && type != "m")
     {
-        qWarning() << "Failed to open: " << filePath;
-        return;
+        cout << "Invalid input. Please enter 'b' or 'm': ";
+        cin >> typeStd;
+        type = QString::fromStdString(typeStd).toLower();
     }
 
-    QJsonDocument doc = QJsonDocument::fromJson(file.readAll());
-    if (!doc.isArray())
-    {
-        qWarning() << "Expected JSON array in: " << filePath;
-        return;
-    }
-
-    QJsonArray jsonArray = doc.array();
     QJsonObject newItem;
-
-    printf("Is it a book or magazine? (b/m): ");
-    string itemTypeStd;
-    cin >> itemTypeStd;
-    QString itemType = QString::fromStdString(itemTypeStd);
-    while (itemType != "b" && itemType != "m")
+    if (type == "b")
     {
-        printf("Invalid input. Please enter 'b' or 'm': ");
-        cin >> itemTypeStd;
-        itemType = QString::fromStdString(itemTypeStd).toLower();
-    }
-    if (itemType == "b")
-    {
-        string IdStd, titleStd, authorStd, genreStd;
-        printf("Enter issue number: ");
-        printf("Format should be ISBN like: 48410-0 or 23453-X \n");
-        cin >> IdStd;
-        printf("Enter title: ");
-        cin >> titleStd;
-        printf("Enter author: ");
-        cin >> authorStd;
-        printf("Enter genre: ");
-        cin >> genreStd;
-
-        newItem["id"] = QString::fromStdString(titleStd);
-        newItem["title"] = QString::fromStdString(titleStd);
-        newItem["author"] = QString::fromStdString(authorStd);
-        newItem["genre"] = QString::fromStdString(genreStd);
+        string id, title, author, genre;
+        cout << "Enter ID (ISBN like 48410-0): ";
+        cin >> id;
+        cout << "Enter title: ";
+        cin >> title;
+        cout << "Enter author: ";
+        cin >> author;
+        cout << "Enter genre: ";
+        cin >> genre;
+        newItem["id"] = QString::fromStdString(id);
+        newItem["title"] = QString::fromStdString(title);
+        newItem["author"] = QString::fromStdString(author);
+        newItem["genre"] = QString::fromStdString(genre);
         newItem["isBorrowed"] = false;
-
-        Book newBook = Book(newItem);
-        if (booksCatalogue.contains(newBook))
+        Book book(newItem);
+        if (booksCatalogue.contains(book))
         {
-            printf("Item already exists in the catalogue.\n");
+            std::cout << "Item already exists in the catalogue.\n";
             return;
         }
-        booksCatalogue.append(newBook);
+        booksCatalogue.append(book);
     }
-    else if (itemType == "m")
+    else
     {
-        string IdStd, titleStd, authorStd, issueNoStd;
-        printf("Enter issue number: ");
-        printf("Format should be ISBN like: 48410-0 or 23453-X \n");
-        cin >> IdStd;
-        printf("Enter title: ");
-        cin >> titleStd;
-        printf("Enter author's full names: ");
-        cin >> authorStd;
-        cin >> issueNoStd;
-
-        newItem["id"] = QString::fromStdString(IdStd);
-        newItem["title"] = QString::fromStdString(titleStd);
-        newItem["author"] = QString::fromStdString(authorStd);
-        newItem["issueNumber"] = QString::fromStdString(issueNoStd);
+        string id, title, author, issue;
+        cout << "Enter ID (like 2025-04): ";
+        cin >> id;
+        cout << endl
+             << "Enter title: ";
+        cin >> title;
+        cout << endl
+             << "Enter author: ";
+        cin >> author;
+        cout << endl
+             << "Enter issue number: ";
+        cin >> issue;
+        newItem["id"] = QString::fromStdString(id);
+        newItem["title"] = QString::fromStdString(title);
+        newItem["author"] = QString::fromStdString(author);
+        newItem["issueNumber"] = QString::fromStdString(issue);
         newItem["isBorrowed"] = false;
-
-        Magazine newMag = Magazine(newItem);
-        if (magsCatalogue.contains(newMag))
+        Magazine mag(newItem);
+        if (magsCatalogue.contains(mag))
         {
-            printf("Item already exists in the catalogue.\n");
+            std::cout << "Item already exists in the catalogue.\n";
             return;
         }
-        magsCatalogue.append(newMag);
+        magsCatalogue.append(mag);
     }
 
-    jsonArray.append(newItem);
-    QJsonDocument newDoc(jsonArray);
-    if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
-    {
-        qWarning() << "Failed to open: " << filePath;
-        return;
-    }
-    file.write(newDoc.toJson());
-    file.close();
-
-    printf("Item added successfully!\n");
+    // Persist updated catalog to JSON file
+    saveData();
+    cout << "Item added successfully!\n";
 }
 
 void Library::borrowItem()
 {
-    // Implement borrow item functionality here
     printf("Would you like to borrow a book or magazine? (b/m): ");
     string itemTypeStd;
     cin >> itemTypeStd;
@@ -302,7 +325,7 @@ void Library::borrowItem()
         printf("Enter book ID: ");
         string idStd;
         cin >> idStd;
-        QString idSearch = QString::fromStdString(idStd);
+        QString idSearch = QString::fromStdString(idStd).toLower();
         for (Book &book : booksCatalogue)
         {
             if (book.getID().toLower() == idSearch)
@@ -315,6 +338,7 @@ void Library::borrowItem()
                 {
                     book.setBorrowing(true);
                     printf("Book borrowed successfully!\n");
+                    saveData();
                 }
                 return;
             }
@@ -326,7 +350,7 @@ void Library::borrowItem()
         printf("Enter magazine ID: ");
         string idStd;
         cin >> idStd;
-        QString idSearch = QString::fromStdString(idStd);
+        QString idSearch = QString::fromStdString(idStd).toLower();
         for (Magazine &magazine : magsCatalogue)
         {
             if (magazine.getID().toLower() == idSearch)
@@ -339,6 +363,7 @@ void Library::borrowItem()
                 {
                     magazine.setBorrowing(true);
                     printf("Magazine borrowed successfully!\n");
+                    saveData();
                 }
                 return;
             }
@@ -349,7 +374,6 @@ void Library::borrowItem()
 
 void Library::returnItem()
 {
-    // Implement return item functionality here
     printf("Are you returning a book or magazine? (b/m): ");
     string itemTypeStd;
     cin >> itemTypeStd;
@@ -366,7 +390,7 @@ void Library::returnItem()
         printf("Enter book ID: ");
         string idStd;
         cin >> idStd;
-        QString idSearch = QString::fromStdString(idStd);
+        QString idSearch = QString::fromStdString(idStd).toLower();
         for (Book &book : booksCatalogue)
         {
             if (book.getID().toLower() == idSearch)
@@ -379,6 +403,7 @@ void Library::returnItem()
                 {
                     book.setBorrowing(false);
                     printf("Book returned successfully!\n");
+                    saveData();
                 }
                 return;
             }
@@ -403,6 +428,7 @@ void Library::returnItem()
                 {
                     magazine.setBorrowing(false);
                     printf("Magazine returned successfully!\n");
+                    saveData();
                 }
                 return;
             }

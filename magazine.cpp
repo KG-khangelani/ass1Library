@@ -7,10 +7,12 @@ Magazine::Magazine() {}
 Magazine::Magazine(const QJsonObject &item)
 {
     setID(item["id"].toString());
-    setAuthor(item["fullname"].toString());
-    setBorrowing(item["is_borrowed"].toBool());
+    setAuthor(item["author"].toString());
+    setBorrowing(item["isBorrowed"].toBool());
     setTitle(item["title"].toString());
-    setIssueNo(item["issueNumber"].toInt());
+    // Support both 'issueNumber' (saved data) and 'issue' (initial data)
+    int issueVal = item.contains("issueNumber") ? item["issueNumber"].toInt() : item["issue"].toInt();
+    setIssueNo(issueVal);
 }
 
 int Magazine::getIssueNo() const

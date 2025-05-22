@@ -13,6 +13,7 @@ A simple console-based Library Management System written in C++ using Qt for JSO
 - **Search** for Books or Magazines by title, author, or ID
 - **Add** new items to the catalogue
 - **Borrow** and **Return** items, with borrowing state saved to JSON
+- **Print** all items, displaying the full books and magazines catalogues
 
 ## Project Structure
 ```
