@@ -1,50 +1,77 @@
 {
-  "version": "2.0.0",
-  "tasks": [
-    {
-        "label": "Build Qt Project",
-        "type": "shell",
-        "command": "D:\\Qt\\6.8.2\\mingw_64\\bin\\qmake.exe ass1Library.pro && D:\\Qt\\Tools\\mingw1310_64\\bin\\mingw32-make.exe",
-        "options": {
-            "cwd": "${workspaceFolder}",
-            "shell": {
-                "executable": "cmd.exe",
-                "args": [
-                    "/d",
-                    "/c"
-                ]
-            },
-            "env": {
-                "PATH": "D:\\Qt\\6.8.2\\mingw_64\\bin;D:\\Qt\\Tools\\mingw1310_64\\bin;${env:PATH}"
-            }
-        },
-        "group": {
-            "kind": "build",
-            "isDefault": true
-        },
-        "problemMatcher": [
-            "$gcc"
-        ]
-    },
-    {
-        "label": "Run Qt Application",
-        "type": "shell",
-        "command": "${workspaceFolder}/release/ass1Library.exe",
-        "options": {
-            "cwd": "${workspaceFolder}/release"
-        },
-        "presentation": {
-            "reveal": "always",
-            "panel": "shared"
-        },
-        "problemMatcher": [
-            "$gcc"
-        ]
-    },
-    {
-      "label": "Build & Run",
-      "dependsOn": ["Build Qt Project", "Run Qt Application"],
-      "dependsOrder": "sequence"
-    }
-]
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Build Qt Project (cmd)",
+			"type": "shell",
+			"command": "D:\\Qt\\6.8.2\\mingw_64\\bin\\qmake.exe ass1Library.pro && D:\\Qt\\Tools\\mingw1310_64\\bin\\mingw32-make.exe",
+			"options": {
+				"cwd": "${workspaceFolder}",
+				"shell": {
+					"executable": "cmd.exe",
+					"args": [
+						"/d",
+						"/c"
+					]
+				},
+				"env": {
+					"PATH": "D:\\Qt\\6.8.2\\mingw_64\\bin;D:\\Qt\\Tools\\mingw1310_64\\bin;${env:PATH}"
+				}
+			},
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"problemMatcher": [
+				"$gcc"
+			]
+		},
+		{
+			"label": "Run Qt Application",
+			"type": "shell",
+			"command": "${workspaceFolder}/release/ass1Library.exe",
+			"options": {
+				"cwd": "${workspaceFolder}/release",
+				"shell": {
+					"executable": "cmd.exe",
+					"args": ["/d","/c"]
+				},
+				"env": {
+					"PATH": "D:\\Qt\\6.8.2\\mingw_64\\bin;D:\\Qt\\Tools\\mingw1310_64\\bin;${env:PATH}"
+				}
+			},
+			"presentation": {
+				"reveal": "always",
+				"panel": "shared"
+			},
+			"problemMatcher": [
+				"$gcc"
+			]
+		},
+		{
+			"label": "Build & Run",
+			"dependsOn": [
+				"Build Qt Project (cmd)",
+				"Run Qt Application"
+			],
+			"dependsOrder": "sequence"
+		},
+		{
+			"label": "Build Qt Workspace",
+			"type": "shell",
+			"command": "D:\\Qt\\6.8.2\\mingw_64\\bin\\qmake.exe workspace.pro && D:\\Qt\\Tools\\mingw1310_64\\bin\\mingw32-make.exe",
+			"options": {
+				"cwd": "${workspaceFolder}",
+				"shell": {
+					"executable": "cmd.exe",
+					"args": ["/d","/c"]
+				},
+				"env": {
+					"PATH": "D:\\Qt\\6.8.2\\mingw_64\\bin;D:\\Qt\\Tools\\mingw1310_64\\bin;${env:PATH}"
+				}
+			},
+			"group": "build",
+			"problemMatcher": ["$gcc"]
+		}
+	]
 }

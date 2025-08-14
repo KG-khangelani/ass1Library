@@ -15,7 +15,7 @@
       "externalConsole": false,
       "MIMode": "gdb",
       "miDebuggerPath": "D:/Qt/Tools/mingw1310_64/bin/gdb.exe",
-      "preLaunchTask": "Build Qt Project",
+  "preLaunchTask": "Build Qt Project (cmd)",
       "setupCommands": [
         {
           "description": "Enable pretty-printing for gdb",

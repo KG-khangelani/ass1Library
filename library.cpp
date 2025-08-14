@@ -9,6 +9,10 @@
 #include <QJsonValueRef>
 #include <string>
 
+// LibraryUtils includes
+#include "LibraryUtils/Persistence/FileStorage.h"
+#include "LibraryUtils/Sorting/ItemSorter.h"
+
 using namespace std;
 
 Library::Library()
@@ -36,86 +40,24 @@ Library::Library()
 
 void Library::loadData()
 {
-    QFile file(this->filePath);
-
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+    using LibraryUtils::Persistence::FileStorage;
+    if (!FileStorage::loadAll(this->filePath, booksCatalogue, magsCatalogue))
     {
-        qWarning() << "Failed to open: " << filePath;
-        return;
-    }
-
-    QJsonDocument doc = QJsonDocument::fromJson(file.readAll());
-
-    if (!doc.isArray())
-    {
-        qWarning() << "Expected JSON array in: " << filePath;
-        return;
-    }
-
-    QJsonArray jsonArray = doc.array();
-    for (const QJsonValue &value : jsonArray)
-    {
-        if (value.isObject())
-        {
-            QJsonObject item = value.toObject();
-            LibraryItem libraryItem;
-            libraryItem.setID(item["id"].toString());
-            libraryItem.setTitle(item["title"].toString());
-            libraryItem.setAuthor(item["author"].toString());
-            libraryItem.setBorrowing(item["isBorrowed"].toBool());
-
-            if (item.contains("genre"))
-            {
-                Book book(item);
-                booksCatalogue.append(book);
-            }
-            // Handle magazines with either 'issueNumber' (saved) or initial 'issue'
-            else if (item.contains("issueNumber") || item.contains("issue"))
-            {
-                Magazine magazine(item);
-                magsCatalogue.append(magazine);
-            }
-        }
+        qWarning() << "Could not load data via LibraryUtils from:" << filePath;
     }
 }
 
 void Library::saveData()
 {
-    QFile file(this->filePath);
-    if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate | QIODevice::Text))
+    using LibraryUtils::Persistence::FileStorage;
+    if (!FileStorage::saveAll(this->filePath, booksCatalogue, magsCatalogue))
     {
-        qWarning() << "Failed to open: " << filePath;
-        return;
+        qWarning() << "Could not save data via LibraryUtils to:" << filePath;
     }
-
-    QJsonArray jsonArray;
-
-    for (const Book &book : booksCatalogue)
+    else
     {
-        QJsonObject item;
-        item["id"] = book.getID();
-        item["title"] = book.getTitle();
-        item["author"] = book.getAuthor();
-        item["isBorrowed"] = book.getIsBorrowed();
-        item["genre"] = book.getGenre();
-        jsonArray.append(item);
+        printf("Data saved successfully!\n");
     }
-
-    for (const Magazine &magazine : magsCatalogue)
-    {
-        QJsonObject item;
-        item["id"] = magazine.getID();
-        item["title"] = magazine.getTitle();
-        item["author"] = magazine.getAuthor();
-        item["isBorrowed"] = magazine.getIsBorrowed();
-        item["issueNumber"] = magazine.getIssueNo();
-        jsonArray.append(item);
-    }
-
-    QJsonDocument doc(jsonArray);
-    file.write(doc.toJson());
-    file.close();
-    printf("Data saved successfully!\n");
 }
 
 // Provide functionality to print all books and magazines in the catalog
@@ -447,36 +389,10 @@ QList<Magazine> Library::getMagazinesCatalogue()
 
 void Library::sortItems(QList<Book> &items, const QString &sortBy)
 {
-    if (sortBy == "title")
-    {
-        sort(items.begin(), items.end(), [](const Book &a, const Book &b)
-             { return a.getTitle() < b.getTitle(); });
-    }
-    else if (sortBy == "author")
-    {
-        sort(items.begin(), items.end(), [](const Book &a, const Book &b)
-             { return a.getAuthor() < b.getAuthor(); });
-    }
-    else
-    {
-        printf("Invalid sort key for books.\n");
-    }
+    LibraryUtils::Sorting::ItemSorter::sortBooks(items, sortBy);
 }
 
 void Library::sortItems(QList<Magazine> &items, const QString &sortBy)
 {
-    if (sortBy == "title")
-    {
-        sort(items.begin(), items.end(), [](const Magazine &a, const Magazine &b)
-             { return a.getTitle() < b.getTitle(); });
-    }
-    else if (sortBy == "issue")
-    {
-        sort(items.begin(), items.end(), [](const Magazine &a, const Magazine &b)
-             { return a.getIssueNo() < b.getIssueNo(); });
-    }
-    else
-    {
-        printf("Invalid sort key for magazines.\n");
-    }
+    LibraryUtils::Sorting::ItemSorter::sortMagazines(items, sortBy);
 }

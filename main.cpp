@@ -12,6 +12,11 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QFont>
+#include <QListView>
+#include <QSortFilterProxyModel>
+#include <QLineEdit>
+#include <QToolBar>
+#include <QPushButton>
 
 using namespace std;
 
@@ -37,6 +42,46 @@ int main(int argc, char *argv[])
     QListWidget *listWidget = new QListWidget();
     listWidget->setSpacing(4);
     listWidget->setUniformItemSizes(false);
+
+    QListView *listView = new QListView();
+    listView->setSpacing(4);
+    listView->setUniformItemSizes(false);
+    listView->setModel(new QSortFilterProxyModel());
+
+    QVBoxLayout *layout = new QVBoxLayout();
+    layout->addWidget(listView);
+    w.setCentralWidget(listWidget);
+
+    QSortFilterProxyModel *proxyModel = new QSortFilterProxyModel();
+    proxyModel->setSourceModel(listView->model());
+    listView->setModel(proxyModel);
+
+    QLineEdit *searchBox = new QLineEdit();
+    searchBox->setPlaceholderText("Search...");
+    // searchBox->setStyleSheet("padding: 5px; font-size: 14px; border: 1px solid #ccc; border-radius: 4px;");
+    searchBox->setMinimumSize(QSize(200, 30));
+    layout->addWidget(searchBox);
+
+    QPushButton *addButton = new QPushButton("Add Book");
+    addButton->setToolTip("Add a new book to the library");
+    addButton->setStyleSheet("background-color: lightblue; color: black; font-weight: bold;");
+    addButton->setMinimumSize(QSize(100, 30));
+    QPushButton *removeButton = new QPushButton("Remove Book");
+    QPushButton *editButton = new QPushButton("Edit Book");
+
+    QToolBar *toolbar = w.addToolBar("Main Toolbar");
+    toolbar->addWidget(searchBox);
+    toolbar->addWidget(addButton);
+    toolbar->setMinimumSize(QSize(800, 40));
+    toolbar->setMovable(false);
+    // toolbar->setStyleSheet("background-color: #f0f0f0;");
+    QHBoxLayout *toolbarLayout = new QHBoxLayout();
+    toolbarLayout->addWidget(searchBox);
+    toolbarLayout->addWidget(addButton);
+    toolbarLayout->addWidget(removeButton);
+    toolbarLayout->addWidget(editButton);
+    toolbarLayout->setSpacing(4);
+    toolbar->setLayout(toolbarLayout);
 
     for (Book &book : ithala_lencwadi.getBooksCatalogue())
     {

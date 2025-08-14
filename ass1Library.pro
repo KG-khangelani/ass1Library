@@ -8,6 +8,26 @@ INCLUDEPATH += .
 CONFIG += console
 QT += widgets core
 
+# Add LibraryUtils include path
+INCLUDEPATH += $$PWD/LibraryUtils/include
+
+# If the static library exists, link it; otherwise, compile sources directly
+win32-g++:exists($$PWD/LibraryUtils/build/lib/libLibraryUtils.a) {
+    LIBS += -L$$PWD/LibraryUtils/build/lib -lLibraryUtils
+} else {
+    message("LibraryUtils static lib not found; compiling sources directly")
+    HEADERS += \
+        LibraryUtils/include/LibraryUtils/LibraryUtils_global.h \
+        LibraryUtils/include/LibraryUtils/Persistence/FileStorage.h \
+        LibraryUtils/include/LibraryUtils/Sorting/ItemSorter.h \
+        LibraryUtils/include/LibraryUtils/Searching/BookSearch.h
+
+    SOURCES += \
+        LibraryUtils/src/FileStorage.cpp \
+        LibraryUtils/src/ItemSorter.cpp \
+        LibraryUtils/src/BookSearch.cpp
+}
+
 # You can make your code fail to compile if you use deprecated APIs.
 # In order to do so, uncomment the following line.
 # Please consult the documentation of the deprecated API in order to know
