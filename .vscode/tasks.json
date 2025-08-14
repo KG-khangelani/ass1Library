@@ -4,7 +4,7 @@
 		{
 			"label": "Build Qt Project (cmd)",
 			"type": "shell",
-			"command": "D:\\Qt\\6.8.2\\mingw_64\\bin\\qmake.exe ass1Library.pro && D:\\Qt\\Tools\\mingw1310_64\\bin\\mingw32-make.exe",
+			"command": "taskkill /F /IM ass1Library.exe 2>nul & D:\\Qt\\6.8.2\\mingw_64\\bin\\qmake.exe ass1Library.pro && D:\\Qt\\Tools\\mingw1310_64\\bin\\mingw32-make.exe",
 			"options": {
 				"cwd": "${workspaceFolder}",
 				"shell": {
@@ -27,6 +27,18 @@
 			]
 		},
 		{
+			"label": "Kill App",
+			"type": "shell",
+			"command": "taskkill /F /IM ass1Library.exe 2>nul",
+			"options": {
+				"cwd": "${workspaceFolder}",
+				"shell": {
+					"executable": "cmd.exe",
+					"args": ["/d", "/c"]
+				}
+			}
+		},
+		{
 			"label": "Run Qt Application",
 			"type": "shell",
 			"command": "${workspaceFolder}/release/ass1Library.exe",
@@ -34,7 +46,10 @@
 				"cwd": "${workspaceFolder}/release",
 				"shell": {
 					"executable": "cmd.exe",
-					"args": ["/d","/c"]
+					"args": [
+						"/d",
+						"/c"
+					]
 				},
 				"env": {
 					"PATH": "D:\\Qt\\6.8.2\\mingw_64\\bin;D:\\Qt\\Tools\\mingw1310_64\\bin;${env:PATH}"
@@ -64,14 +79,28 @@
 				"cwd": "${workspaceFolder}",
 				"shell": {
 					"executable": "cmd.exe",
-					"args": ["/d","/c"]
+					"args": [
+						"/d",
+						"/c"
+					]
 				},
 				"env": {
 					"PATH": "D:\\Qt\\6.8.2\\mingw_64\\bin;D:\\Qt\\Tools\\mingw1310_64\\bin;${env:PATH}"
 				}
 			},
 			"group": "build",
-			"problemMatcher": ["$gcc"]
+			"problemMatcher": [
+				"$gcc"
+			]
+		},
+		{
+			"label": "Build Qt Project (safe)",
+			"type": "shell",
+			"command": "taskkill /F /IM ass1Library.exe; $LASTEXITCODE=0; D:\\Qt\\6.8.2\\mingw_64\\bin\\qmake.exe ass1Library.pro; D:\\Qt\\Tools\\mingw1310_64\\bin\\mingw32-make.exe",
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": "build"
 		}
 	]
 }

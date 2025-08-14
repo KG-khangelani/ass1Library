@@ -70,6 +70,13 @@
         "title": "Paradise: Love"
     },
     {
+        "author": "Sikelelwa Mgoqi",
+        "genre": "Documentary",
+        "id": "BK-20250814-E4E82F7C",
+        "isBorrowed": false,
+        "title": "Story of My Life"
+    },
+    {
         "author": "Dawn Tobias",
         "id": "245254128-1",
         "isBorrowed": false,
@@ -138,5 +145,26 @@
         "isBorrowed": false,
         "issueNumber": 35,
         "title": "The Missionaries"
+    },
+    {
+        "author": "Khangelani",
+        "id": "MG-202508-269B7881",
+        "isBorrowed": false,
+        "issueNumber": 0,
+        "title": "Cool Stuff"
+    },
+    {
+        "author": "",
+        "id": "MG-202508-E75C8A84",
+        "isBorrowed": false,
+        "issueNumber": 0,
+        "title": ""
+    },
+    {
+        "author": "",
+        "id": "MG-202508-748411D6",
+        "isBorrowed": false,
+        "issueNumber": 0,
+        "title": ""
     }
 ]

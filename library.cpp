@@ -8,6 +8,9 @@
 #include <QDebug>
 #include <QJsonValueRef>
 #include <string>
+#include <QDate>
+#include <QUuid>
+#include <QDateTime>
 
 // LibraryUtils includes
 #include "LibraryUtils/Persistence/FileStorage.h"
@@ -395,4 +398,108 @@ void Library::sortItems(QList<Book> &items, const QString &sortBy)
 void Library::sortItems(QList<Magazine> &items, const QString &sortBy)
 {
     LibraryUtils::Sorting::ItemSorter::sortMagazines(items, sortBy);
+}
+
+bool Library::addBook(const Book &b)
+{
+    if (booksCatalogue.contains(b))
+        return false;
+    booksCatalogue.append(b);
+    saveData();
+    return true;
+}
+
+bool Library::addMagazine(const Magazine &m)
+{
+    if (magsCatalogue.contains(m))
+        return false;
+    magsCatalogue.append(m);
+    saveData();
+    return true;
+}
+
+bool Library::borrowById(const QString &id, bool isBook)
+{
+    if (isBook)
+    {
+        for (auto &b : booksCatalogue)
+        {
+            if (b.getID() == id && !b.getIsBorrowed())
+            {
+                b.setBorrowing(true);
+                saveData();
+                return true;
+            }
+        }
+    }
+    else
+    {
+        for (auto &m : magsCatalogue)
+        {
+            if (m.getID() == id && !m.getIsBorrowed())
+            {
+                m.setBorrowing(true);
+                saveData();
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+bool Library::returnById(const QString &id, bool isBook)
+{
+    if (isBook)
+    {
+        for (auto &b : booksCatalogue)
+        {
+            if (b.getID() == id && b.getIsBorrowed())
+            {
+                b.setBorrowing(false);
+                saveData();
+                return true;
+            }
+        }
+    }
+    else
+    {
+        for (auto &m : magsCatalogue)
+        {
+            if (m.getID() == id && m.getIsBorrowed())
+            {
+                m.setBorrowing(false);
+                saveData();
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+bool Library::idExists(const QString &id) const
+{
+    for (const auto &b : booksCatalogue)
+        if (b.getID() == id)
+            return true;
+    for (const auto &m : magsCatalogue)
+        if (m.getID() == id)
+            return true;
+    return false;
+}
+
+QString Library::generateUniqueId(bool isBook) const
+{
+    // Prefix by type and date; ensure uniqueness by retrying a few times.
+    const QString prefix = isBook ? "BK-" : "MG-";
+    const QString datePart = isBook ? QDate::currentDate().toString("yyyyMMdd")
+                                    : QDate::currentDate().toString("yyyyMM");
+    for (int i = 0; i < 10; ++i)
+    {
+        const QString rnd = QUuid::createUuid().toString(QUuid::WithoutBraces).left(8).toUpper();
+        const QString id = QString("%1%2-%3").arg(prefix, datePart, rnd);
+        if (!idExists(id))
+            return id;
+    }
+    // Fallback
+    return QString("%1%2-%3").arg(prefix, datePart, QString::number(QDateTime::currentMSecsSinceEpoch() % 1000000));
 }

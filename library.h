@@ -24,6 +24,14 @@ public:
     void sortItems(QList<Book> &items, const QString &sortBy);
     void sortItems(QList<Magazine> &items, const QString &sortBy = QString());
 
+    // Helpers for UI
+    bool addBook(const Book &b);
+    bool addMagazine(const Magazine &m);
+    bool borrowById(const QString &id, bool isBook);
+    bool returnById(const QString &id, bool isBook);
+    // Auto-ID generator (public so UI can request an ID when creating objects)
+    QString generateUniqueId(bool isBook) const;
+
 protected:
     // Store JSON alongside the executable
     QString filePath = QCoreApplication::applicationDirPath() + "/library_data.json";
@@ -32,6 +40,8 @@ protected:
 private:
     QList<Book> booksCatalogue;
     QList<Magazine> magsCatalogue;
+    // Auto-ID helpers
+    bool idExists(const QString &id) const;
 };
 
 #endif // LIBRARY_H

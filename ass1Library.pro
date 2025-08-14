@@ -6,7 +6,7 @@ TEMPLATE = app
 TARGET = ass1Library
 INCLUDEPATH += .
 CONFIG += console
-QT += widgets core
+QT += widgets core gui
 
 # Add LibraryUtils include path
 INCLUDEPATH += $$PWD/LibraryUtils/include
@@ -20,7 +20,8 @@ win32-g++:exists($$PWD/LibraryUtils/build/lib/libLibraryUtils.a) {
         LibraryUtils/include/LibraryUtils/LibraryUtils_global.h \
         LibraryUtils/include/LibraryUtils/Persistence/FileStorage.h \
         LibraryUtils/include/LibraryUtils/Sorting/ItemSorter.h \
-        LibraryUtils/include/LibraryUtils/Searching/BookSearch.h
+    LibraryUtils/include/LibraryUtils/Searching/BookSearch.h \
+    LibraryUtils/include/LibraryUtils/Storage/Storage.h
 
     SOURCES += \
         LibraryUtils/src/FileStorage.cpp \
@@ -36,8 +37,8 @@ win32-g++:exists($$PWD/LibraryUtils/build/lib/libLibraryUtils.a) {
 #DEFINES += QT_DISABLE_DEPRECATED_UP_TO=0x060000 # disables all APIs deprecated in Qt 6.0.0 and earlier
 
 # Input
-HEADERS += book.h library.h libraryitem.h magazine.h
-SOURCES += book.cpp library.cpp libraryitem.cpp magazine.cpp main.cpp
+HEADERS += book.h library.h libraryitem.h magazine.h mainwindow.h
+SOURCES += book.cpp library.cpp libraryitem.cpp magazine.cpp main.cpp mainwindow.cpp
 
 RESOURCES += \
     library_resources.qrc
