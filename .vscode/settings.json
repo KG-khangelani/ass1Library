@@ -83,6 +83,9 @@
         "typeinfo": "cpp",
         "variant": "cpp",
         "qcoreapplication": "cpp",
-        "qstring": "cpp"
+        "qstring": "cpp",
+        "qjsonobject": "cpp",
+        "qlist": "cpp",
+        "qlabel": "cpp"
     }
 }

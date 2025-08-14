@@ -6,6 +6,7 @@ TEMPLATE = app
 TARGET = ass1Library
 INCLUDEPATH += .
 CONFIG += console
+QT += widgets core
 
 # You can make your code fail to compile if you use deprecated APIs.
 # In order to do so, uncomment the following line.

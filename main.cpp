@@ -1,81 +1,84 @@
 #include "library.h"
 #include <iostream>
-#include <QCoreApplication>
+#include <QApplication>
 #include <string>
 #include <QDebug>
 #include <QString>
+#include <QLabel>
+#include <QMainWindow>
+#include <QListWidget>
+#include <QListWidgetItem>
+#include <QListWidget>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QFont>
 
 using namespace std;
 
 int main(int argc, char *argv[])
 {
-    QCoreApplication app(argc, argv);
+    QApplication app(argc, argv);
     QCoreApplication::setApplicationName("Library Management System");
     QCoreApplication::setApplicationVersion("1.0");
     QCoreApplication::setOrganizationDomain("librarymanagementsystem.com");
 
     Library ithala_lencwadi = Library();
-    printf("Welcome to the Library Management System!\n");
-    string inputStd;
-    QString input;
 
-    while (input != "q")
+    // Simple GUI window to verify Widgets setup
+    QMainWindow w;
+    w.setWindowTitle("Ithala Lencwadi by Khangelani");
+    w.resize(800, 600);
+
+    QLabel *label = new QLabel("Ithala Lencwadi");
+    label->setAlignment(Qt::AlignCenter);
+    label->setStyleSheet("font-size: 24px; font-weight: bold;");
+    w.setCentralWidget(label);
+
+    QListWidget *listWidget = new QListWidget();
+    listWidget->setSpacing(4);
+    listWidget->setUniformItemSizes(false);
+
+    for (Book &book : ithala_lencwadi.getBooksCatalogue())
     {
-        printf("\n");
-        printf("      _______\n");
-        printf("     /      /,\n");
-        printf("    / Home //\n");
-        printf("   /______//\n");
-        printf("  (______(/\n\n");
-        printf("Please choose an option:\n");
-        printf("[1] - Search for an item\n");
-        printf("[2] - Add an item\n");
-        printf("[3] - Borrow an item\n");
-        printf("[4] - Return an item\n");
-        printf("[5] - Print all items\n");
-        printf("[q] - Exit\n");
-        cin >> inputStd;
-        input = QString::fromStdString(inputStd);
-        while (input != "1" && input != "q" && input != "2" && input != "3" && input != "4" && input != "5")
-        {
-            printf("Invalid input. Please enter a number between 1 and 5: ");
-            cin >> inputStd;
-            input = QString::fromStdString(inputStd);
-        }
-        if (input == "1")
-        {
-            ithala_lencwadi.searchItem();
-        }
-        else if (input == "2")
-        {
-            ithala_lencwadi.addItem();
-        }
-        else if (input == "3")
-        {
-            ithala_lencwadi.borrowItem();
-        }
-        else if (input == "4")
-        {
-            ithala_lencwadi.returnItem();
-        }
-        else if (input == "5")
-        {
-            ithala_lencwadi.printAllItems();
-        }
-        else if (input == "q")
-        {
-            printf("Saving data...\n");
-            ithala_lencwadi.saveData();
-            printf("Exiting the program. Goodbye!\n");
-            return 0;
-        }
+        QListWidgetItem *listWidgetItem = new QListWidgetItem(book.getTitle());
+        listWidget->addItem(listWidgetItem);
+
+        QWidget *row = new QWidget(listWidget);
+        QVBoxLayout *v = new QVBoxLayout(row);
+        // v->setContentsMargins(10, 8, 10, 8);
+        v->setSpacing(2);
+
+        QLabel *titleLabel = new QLabel(book.getTitle(), row);
+        QFont tf = titleLabel->font();
+        tf.setPointSize(11);
+        tf.setBold(true);
+        titleLabel->setFont(tf);
+        v->addWidget(titleLabel);
+
+        QLabel *authorLabel = new QLabel(book.getAuthor(), row);
+        QFont af = authorLabel->font();
+        af.setPointSize(11);
+        // authorLabel->setSizeHint(QSize(0, 20));
+        authorLabel->setFont(af);
+        v->addWidget(authorLabel);
+
+        QLabel *genreLabel = new QLabel(book.getGenre(), row);
+        QFont gf = genreLabel->font();
+        gf.setPointSize(11);
+        genreLabel->setFont(gf);
+        v->addWidget(genreLabel);
+
+        QHBoxLayout *hl = new QHBoxLayout();
+        hl->setSpacing(2);
+        hl->addWidget(genreLabel);
+        hl->addWidget(authorLabel);
+        // genreLabel->setLayout(hl);
+        v->addLayout(hl);
+
+        listWidgetItem->setSizeHint(row->sizeHint());
+        listWidget->setItemWidget(listWidgetItem, row);
     }
-
-#ifdef _WIN32
-    // Wait for key press to keep console open
-    printf("\nPress Enter to exit...");
-    getchar();
-#endif
-
+    w.setCentralWidget(listWidget);
+    w.show();
     return app.exec();
 }

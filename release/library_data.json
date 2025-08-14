@@ -1,124 +1,142 @@
 [
     {
-  "id": "245254128-1",
-  "author": "Dawn Tobias",
-  "issue": 9,
-  "title": "Off Limits",
-  "isBorrowed": false
-}, {
-  "id": "434455460-4",
-  "author": "Gabrila Dunks",
-  "issue": 50,
-  "title": "Street Scenes ",
-  "isBorrowed": true
-}, {
-  "id": "786537839-4",
-  "author": "Carry Windrass",
-  "issue": 17,
-  "title": "Vlad Tepes (Vlad &#354;epe&#351;)",
-  "isBorrowed": false
-}, {
-  "id": "408513900-2",
-  "author": "Henrieta Mosey",
-  "issue": 30,
-  "title": "Unleashed (Danny the Dog)",
-  "isBorrowed": true
-}, {
-  "id": "566632189-7",
-  "author": "Fenelia Dillestone",
-  "issue": 40,
-  "title": "Ixcanul Volcano",
-  "isBorrowed": true
-}, {
-  "id": "230378424-7",
-  "author": "Catherine Everill",
-  "issue": 30,
-  "title": "Rocky III",
-  "isBorrowed": true
-}, {
-  "id": "746674638-1",
-  "author": "Ced Adkins",
-  "issue": 31,
-  "title": "Dark Victory",
-  "isBorrowed": false
-}, {
-  "id": "367323785-3",
-  "author": "Solomon Gates",
-  "issue": 16,
-  "title": "Walker",
-  "isBorrowed": false
-}, {
-  "id": "157634490-8",
-  "author": "Melva Endean",
-  "issue": 33,
-  "title": "Pledge, The",
-  "isBorrowed": false
-}, {
-  "id": "786881433-0",
-  "author": "Elwood Yegorchenkov",
-  "issue": 35,
-  "title": "The Missionaries",
-  "isBorrowed": false
-},
-{
-  "id": "210718408-9",
-  "author": "Mabibi Mzwakhe",
-  "genre": "Hip Hop",
-  "title": "Indaba Zakhe Zimbiz",
-  "isBorrowed": false
-}, {
-  "id": "177980054-1",
-  "author": "Vin Moyers",
-  "genre": "Horror|Thriller",
-  "title": "Barricade",
-  "isBorrowed": false
-}, {
-  "id": "810020779-8",
-  "author": "Neel Gosden",
-  "genre": "Documentary",
-  "title": "My Kidnapper",
-  "isBorrowed": true
-}, {
-  "id": "198332774-3",
-  "author": "Kyle Husset",
-  "genre": "Drama",
-  "title": "7 Days in Havana",
-  "isBorrowed": true
-}, {
-  "id": "281874537-3",
-  "author": "Kingsly Uren",
-  "genre": "Drama",
-  "title": "Broken Hearts Club, The",
-  "isBorrowed": true
-}, {
-  "id": "484776413-7",
-  "author": "Emmanuel Albert",
-  "genre": "Drama",
-  "title": "Story of Ruth, The",
-  "isBorrowed": true
-}, {
-  "id": "420439798-0",
-  "author": "Ruthy Nealey",
-  "genre": "Documentary",
-  "title": "11th Hour, The",
-  "isBorrowed": false
-}, {
-  "id": "302525353-3",
-  "author": "Concettina Leadbeatter",
-  "genre": "Documentary",
-  "title": "Clint Eastwood: Out of the Shadows",
-  "isBorrowed": false
-}, {
-  "id": "081809619-5",
-  "author": "Cathie McKenney",
-  "genre": "Comedy|Fantasy",
-  "title": "Just Visiting",
-  "isBorrowed": false
-}, {
-  "id": "204491105-1",
-  "author": "Minnaminnie Lumly",
-  "genre": "Drama",
-  "title": "Paradise: Love",
-  "isBorrowed": false
-}
+        "author": "Mabibi Mzwakhe",
+        "genre": "Hip Hop",
+        "id": "210718408-9",
+        "isBorrowed": false,
+        "title": "Indaba Zakhe Zimbiz"
+    },
+    {
+        "author": "Vin Moyers",
+        "genre": "Horror|Thriller",
+        "id": "177980054-1",
+        "isBorrowed": false,
+        "title": "Barricade"
+    },
+    {
+        "author": "Neel Gosden",
+        "genre": "Documentary",
+        "id": "810020779-8",
+        "isBorrowed": true,
+        "title": "My Kidnapper"
+    },
+    {
+        "author": "Kyle Husset",
+        "genre": "Drama",
+        "id": "198332774-3",
+        "isBorrowed": true,
+        "title": "7 Days in Havana"
+    },
+    {
+        "author": "Kingsly Uren",
+        "genre": "Drama",
+        "id": "281874537-3",
+        "isBorrowed": true,
+        "title": "Broken Hearts Club, The"
+    },
+    {
+        "author": "Emmanuel Albert",
+        "genre": "Drama",
+        "id": "484776413-7",
+        "isBorrowed": true,
+        "title": "Story of Ruth, The"
+    },
+    {
+        "author": "Ruthy Nealey",
+        "genre": "Documentary",
+        "id": "420439798-0",
+        "isBorrowed": false,
+        "title": "11th Hour, The"
+    },
+    {
+        "author": "Concettina Leadbeatter",
+        "genre": "Documentary",
+        "id": "302525353-3",
+        "isBorrowed": false,
+        "title": "Clint Eastwood: Out of the Shadows"
+    },
+    {
+        "author": "Cathie McKenney",
+        "genre": "Comedy|Fantasy",
+        "id": "081809619-5",
+        "isBorrowed": false,
+        "title": "Just Visiting"
+    },
+    {
+        "author": "Minnaminnie Lumly",
+        "genre": "Drama",
+        "id": "204491105-1",
+        "isBorrowed": false,
+        "title": "Paradise: Love"
+    },
+    {
+        "author": "Dawn Tobias",
+        "id": "245254128-1",
+        "isBorrowed": false,
+        "issueNumber": 9,
+        "title": "Off Limits"
+    },
+    {
+        "author": "Gabrila Dunks",
+        "id": "434455460-4",
+        "isBorrowed": true,
+        "issueNumber": 50,
+        "title": "Street Scenes "
+    },
+    {
+        "author": "Carry Windrass",
+        "id": "786537839-4",
+        "isBorrowed": false,
+        "issueNumber": 17,
+        "title": "Vlad Tepes (Vlad &#354;epe&#351;)"
+    },
+    {
+        "author": "Henrieta Mosey",
+        "id": "408513900-2",
+        "isBorrowed": true,
+        "issueNumber": 30,
+        "title": "Unleashed (Danny the Dog)"
+    },
+    {
+        "author": "Fenelia Dillestone",
+        "id": "566632189-7",
+        "isBorrowed": true,
+        "issueNumber": 40,
+        "title": "Ixcanul Volcano"
+    },
+    {
+        "author": "Catherine Everill",
+        "id": "230378424-7",
+        "isBorrowed": true,
+        "issueNumber": 30,
+        "title": "Rocky III"
+    },
+    {
+        "author": "Ced Adkins",
+        "id": "746674638-1",
+        "isBorrowed": false,
+        "issueNumber": 31,
+        "title": "Dark Victory"
+    },
+    {
+        "author": "Solomon Gates",
+        "id": "367323785-3",
+        "isBorrowed": false,
+        "issueNumber": 16,
+        "title": "Walker"
+    },
+    {
+        "author": "Melva Endean",
+        "id": "157634490-8",
+        "isBorrowed": false,
+        "issueNumber": 33,
+        "title": "Pledge, The"
+    },
+    {
+        "author": "Elwood Yegorchenkov",
+        "id": "786881433-0",
+        "isBorrowed": false,
+        "issueNumber": 35,
+        "title": "The Missionaries"
+    }
 ]
